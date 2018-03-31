@@ -10,6 +10,17 @@ const cardList = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-
  *   - add each card's HTML to the page
  */
 
+// create one card
+function createCard(cardList) {
+	const deck = document.querySelector('ul.deck');
+	deck.insertAdjacentHTML('afterbegin', '<li class="card"><i class="fa ' + cardList + '"></i></li>');	
+}
+
+//generate cards in DOM
+function generateCards() {
+	shuffle(cardList.concat(cardList)).forEach(createCard);
+}
+
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -24,6 +35,15 @@ function shuffle(array) {
 
     return array;
 }
+
+// function init
+function init(){
+    generateCards();
+}
+
+document.addEventListener("DOMContentLoaded", function(event) {
+    init();
+});	
 
 
 /*
