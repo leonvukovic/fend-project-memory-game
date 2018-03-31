@@ -2,8 +2,8 @@
  * Create a list that holds all of your cards
  */
 const cardList = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
-
 const deck = document.querySelector('ul.deck');
+let openCards = [];
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -19,7 +19,7 @@ function createCard(cardList) {
 	icon.className = "fa " + cardList;
 	card.appendChild(icon);
 	deck.appendChild(card);
-	card.addEventListener('click', listenForClick);
+	card.addEventListener('click', openCard);
 ;}
 
 // generate cards in DOM
@@ -27,11 +27,36 @@ function generateCards() {
 	shuffle(cardList.concat(cardList)).forEach(createCard);
 }
 
-// flip the card
-function listenForClick(evt) {
+// flip the card on click
+function openCard(evt) {
+	displaySymbol(evt);
+	pushCardsList(evt);
+	if (openCards.length > 1 && openCards[0] === openCards[1]){		
+		cardsLock();
+	} else if (openCards.length > 1 && openCards[0] !== openCards[1]) {
+		cardsReset();
+	}
+}
+
+// open card symbol
+function displaySymbol(evt){
 	evt.target.className = "card open show";
 }
 
+// push to card list
+function pushCardsList(evt) {
+	openCards.push(evt.target.firstChild.className);	
+}
+
+// lock the cards
+function cardsLock() {
+	console.log('lock');
+}
+
+// reset the cards if they don't match
+function cardsReset() {
+	console.log('reset');
+}
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -53,6 +78,7 @@ function init(){
     generateCards();
 }
 
+// on DOM content load initialize functions
 document.addEventListener("DOMContentLoaded", function(event) {
     init();
 });	
