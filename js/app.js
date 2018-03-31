@@ -3,6 +3,7 @@
  */
 const cardList = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
 
+const deck = document.querySelector('ul.deck');
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -12,14 +13,25 @@ const cardList = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-
 
 // create one card
 function createCard(cardList) {
-	const deck = document.querySelector('ul.deck');
-	deck.insertAdjacentHTML('afterbegin', '<li class="card"><i class="fa ' + cardList + '"></i></li>');	
-}
+	const card = document.createElement('li');
+	card.className = "card";
+	const icon = document.createElement('i');
+	icon.className = "fa " + cardList;
+	card.appendChild(icon);
+	deck.appendChild(card);
+	card.addEventListener('click', listenForClick);
+;}
 
-//generate cards in DOM
+// generate cards in DOM
 function generateCards() {
 	shuffle(cardList.concat(cardList)).forEach(createCard);
 }
+
+// flip the card
+function listenForClick(evt) {
+	evt.target.className = "card open show";
+}
+
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
