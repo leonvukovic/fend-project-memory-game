@@ -3,6 +3,8 @@
  */
 const cardList = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
 const deck = document.querySelector('ul.deck');
+const restartButton = document.querySelector('.restart');
+restartButton.addEventListener('click', restart);
 let openCards = [];
 /*
  * Display the cards on the page
@@ -19,7 +21,7 @@ function createCard(cardList) {
 	icon.className = "fa " + cardList;
 	card.appendChild(icon);
 	deck.appendChild(card);
-	card.addEventListener('click', openCard);
+	card.addEventListener('click', openCard);	
 ;}
 
 // generate cards in DOM
@@ -28,11 +30,11 @@ function generateCards() {
 }
 
 // flip the card on click
-function openCard(evt) {
+function openCard(evt) {	
 	displaySymbol(evt);
 	pushCardsList(evt);
 	if (openCards.length > 1 && openCards[0] === openCards[1]){		
-		cardsLock();
+		cardsLock(evt);
 	} else if (openCards.length > 1 && openCards[0] !== openCards[1]) {
 		//cardsReset();
 		setTimeout(cardsReset, 500);
@@ -50,7 +52,7 @@ function pushCardsList(evt) {
 }
 
 // lock the cards
-function cardsLock() {
+function cardsLock() {		
 	openCards.pop();
 	openCards.pop();
 	let match = document.getElementsByClassName('card open show');
@@ -64,7 +66,7 @@ function cardsLock() {
 }
 
 // reset the cards if they don't match
-function cardsReset() {			
+function cardsReset() {	
 	openCards.pop();
 	openCards.pop();
 	let reset = document.getElementsByClassName('card open show');	
@@ -75,6 +77,11 @@ function cardsReset() {
 // displays final score
 function finalScore() {
 	console.log('uspio si');
+}
+
+// when restart button is pressed
+function restart() {
+	console.log('restart');
 }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
