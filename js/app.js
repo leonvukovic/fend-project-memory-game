@@ -36,8 +36,7 @@ function openCard(evt) {
 	if (openCards.length > 1 && openCards[0] === openCards[1]){		
 		cardsLock(evt);
 	} else if (openCards.length > 1 && openCards[0] !== openCards[1]) {
-		//cardsReset();
-		setTimeout(cardsReset, 500);
+		setTimeout(cardsReset, 800);
 	}
 }
 
@@ -81,7 +80,11 @@ function finalScore() {
 
 // when restart button is pressed
 function restart() {
-	console.log('restart');
+	let deleteList = document.querySelectorAll('.card');	
+	for(let i = 0; i < deleteList.length; i++) {	
+		deleteList[i].remove();
+	}
+	generateCards();
 }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
