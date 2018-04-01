@@ -4,10 +4,11 @@
 const cardList = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
 const deck = document.querySelector('ul.deck');
 const restartButton = document.querySelector('.restart');
-restartButton.addEventListener('click', restart);
+const insertMoves = document.querySelector('.moves');
 let openCards = [];
 let moves = 0;
-const insertMoves = document.querySelector('.moves');
+let stars = document.querySelector('ul.stars');
+restartButton.addEventListener('click', restart);
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -98,18 +99,18 @@ function restart() {
 function moveCounter() {
 	moves++;	
 	insertMoves.textContent = moves;
+	ratingStars();
 } 
 
 // game rating
-function ratingStars() {
-	console.log('test');
-	if (moves > 16) {
-		console.log('bad');
-	} else if (moves > 10) {
-		console.log('ok');
-	} else {
-		console.log('great');
-	}
+function ratingStars() {	
+	if (moves > 2) {	
+		let lastStar = stars.children[1].querySelector('.fa');
+		lastStar.className = "fa fa-star-o";
+	} else if (moves > 1) {	
+		let lastStar = stars.children[2].querySelector('.fa');
+		lastStar.className = "fa fa-star-o";
+	} 
 }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
