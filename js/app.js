@@ -80,6 +80,7 @@ function cardsReset() {
 // displays final score
 function finalScore() {
 	console.log('uspio si');
+	ratingStars();
 }
 
 // when restart button is pressed
@@ -98,6 +99,18 @@ function moveCounter() {
 	moves++;	
 	insertMoves.textContent = moves;
 } 
+
+// game rating
+function ratingStars() {
+	console.log('test');
+	if (moves > 16) {
+		console.log('bad');
+	} else if (moves > 10) {
+		console.log('ok');
+	} else {
+		console.log('great');
+	}
+}
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
