@@ -34,7 +34,8 @@ function openCard(evt) {
 	if (openCards.length > 1 && openCards[0] === openCards[1]){		
 		cardsLock();
 	} else if (openCards.length > 1 && openCards[0] !== openCards[1]) {
-		cardsReset();
+		//cardsReset();
+		setTimeout(cardsReset, 500);
 	}
 }
 
@@ -50,12 +51,30 @@ function pushCardsList(evt) {
 
 // lock the cards
 function cardsLock() {
-	console.log('lock');
+	openCards.pop();
+	openCards.pop();
+	let match = document.getElementsByClassName('card open show');
+	match[0].className = "card match";
+	match[0].className = "card match";
+
+	let final = document.getElementsByClassName('card match');
+	if (final.length === 16) {
+		finalScore();
+	}
 }
 
 // reset the cards if they don't match
-function cardsReset() {
-	console.log('reset');
+function cardsReset() {			
+	openCards.pop();
+	openCards.pop();
+	let reset = document.getElementsByClassName('card open show');	
+	reset[0].className = "card";
+	reset[0].className = "card";
+}
+
+// displays final score
+function finalScore() {
+	console.log('uspio si');
 }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
