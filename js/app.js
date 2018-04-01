@@ -6,6 +6,8 @@ const deck = document.querySelector('ul.deck');
 const restartButton = document.querySelector('.restart');
 restartButton.addEventListener('click', restart);
 let openCards = [];
+let moves = 0;
+const insertMoves = document.querySelector('.moves');
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -32,11 +34,13 @@ function generateCards() {
 // flip the card on click
 function openCard(evt) {	
 	displaySymbol(evt);
-	pushCardsList(evt);
+	pushCardsList(evt);	
 	if (openCards.length > 1 && openCards[0] === openCards[1]){		
 		cardsLock(evt);
+		moveCounter();
 	} else if (openCards.length > 1 && openCards[0] !== openCards[1]) {
 		setTimeout(cardsReset, 800);
+		moveCounter();
 	}
 }
 
@@ -85,7 +89,15 @@ function restart() {
 		deleteList[i].remove();
 	}
 	generateCards();
+	moves = 0;
+	insertMoves.textContent = '';
 }
+
+// move counter
+function moveCounter() {
+	moves++;	
+	insertMoves.textContent = moves;
+} 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
