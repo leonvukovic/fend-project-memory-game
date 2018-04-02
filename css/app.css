@@ -37,7 +37,8 @@ h1 {
  * Styles for the deck of cards
  */
 
-.deck {
+.deck,
+.popup {
     width: 660px;
     min-height: 680px;
     background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
@@ -91,19 +92,33 @@ h1 {
     margin-bottom: 10px;
 }
 
-.score-panel .stars {
+.score-panel .stars,
+.popup .stars {
     margin: 0;
     padding: 0;
     display: inline-block;
     margin: 0 5px 0 0;
 }
 
-.score-panel .stars li {
+.score-panel .stars li,
+.popup .stars li {
     list-style: none;
     display: inline-block;
 }
 
 .score-panel .restart {
     float: right;
+    cursor: pointer;
+}
+
+.popup {
+    color: #fff;
+    background: #02ccba;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.popup .final-restart {
     cursor: pointer;
 }

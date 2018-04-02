@@ -3,12 +3,17 @@
  */
 const cardList = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
 const deck = document.querySelector('ul.deck');
+const popup = document.querySelector('div.popup');
 const restartButton = document.querySelector('.restart');
+const finishPara = document.createElement('p');
+const congratsHeading = document.createElement('h2');
+const finalRestart = document.createElement('button');
 const insertMoves = document.querySelector('.moves');
 let openCards = [];
 let moves = 0;
 let stars = document.querySelector('ul.stars');
 restartButton.addEventListener('click', restart);
+finalRestart.addEventListener('click', restart);
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -81,7 +86,25 @@ function cardsReset() {
 // displays final score
 function finalScore() {
 	console.log('uspio si');
-	ratingStars();
+	//ratingStars();
+	deck.style.display = "none";
+	popup.style.display = "flex";
+
+	let clnStars = stars.cloneNode(true);
+	popup.appendChild(clnStars);
+
+	let congratsHeadingText = document.createTextNode('Congratulations!!!');
+	congratsHeading.appendChild(congratsHeadingText);
+	popup.appendChild(congratsHeading);
+	
+	let textOfFinishParagraph = document.createTextNode('You finished in ' + moves + ' moves!');
+	finishPara.appendChild(textOfFinishParagraph);
+	popup.appendChild(finishPara);
+
+	finalRestart.className = "final-restart";
+	let finalRestartText = document.createTextNode('Play again?');
+	finalRestart.appendChild(finalRestartText);
+	popup.appendChild(finalRestart);
 }
 
 // when restart button is pressed
@@ -96,11 +119,21 @@ function restart() {
 		stars.children[1].querySelector('.fa').className = "fa fa-star";
 		stars.children[2].querySelector('.fa').className = "fa fa-star";
 	} else if (moves > 10) {	
-		stars.children[2].querySelector('.fa').className = "fa fa-star";
+		stars.children[2].querySelector('.fa').className = "fa fa-star";			
 	} 
 
 	moves = 0;
-	insertMoves.textContent = '';
+	insertMoves.textContent = "";
+
+	finishPara.textContent = "";
+	congratsHeading.textContent = "";
+	finalRestart.textContent = "";
+	while (popup.firstChild) {
+	    popup.removeChild(popup.firstChild);
+	}
+
+	deck.style.display = "flex";
+	popup.style.display = "none";
 }
 
 // move counter
@@ -115,9 +148,11 @@ function ratingStars() {
 	if (moves > 15) {	
 		let lastStar = stars.children[1].querySelector('.fa');
 		lastStar.className = "fa fa-star-o";
-	} else if (moves > 10) {	
+	} else if (moves > 1) {	
 		let lastStar = stars.children[2].querySelector('.fa');
 		lastStar.className = "fa fa-star-o";
+		console.log('test');	
+		finalScore();
 	} 
 }
 
