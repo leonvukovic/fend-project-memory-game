@@ -91,6 +91,14 @@ function restart() {
 		deleteList[i].remove();
 	}
 	generateCards();
+
+	if (moves > 15) {	
+		stars.children[1].querySelector('.fa').className = "fa fa-star";
+		stars.children[2].querySelector('.fa').className = "fa fa-star";
+	} else if (moves > 10) {	
+		stars.children[2].querySelector('.fa').className = "fa fa-star";
+	} 
+
 	moves = 0;
 	insertMoves.textContent = '';
 }
@@ -104,10 +112,10 @@ function moveCounter() {
 
 // game rating
 function ratingStars() {	
-	if (moves > 2) {	
+	if (moves > 15) {	
 		let lastStar = stars.children[1].querySelector('.fa');
 		lastStar.className = "fa fa-star-o";
-	} else if (moves > 1) {	
+	} else if (moves > 10) {	
 		let lastStar = stars.children[2].querySelector('.fa');
 		lastStar.className = "fa fa-star-o";
 	} 
