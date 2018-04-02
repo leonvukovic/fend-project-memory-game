@@ -14,6 +14,7 @@ let moves = 0;
 let stars = document.querySelector('ul.stars');
 restartButton.addEventListener('click', restart);
 finalRestart.addEventListener('click', restart);
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -70,7 +71,7 @@ function cardsLock() {
 
 	let final = document.getElementsByClassName('card match');
 	if (final.length === 16) {
-		finalScore();
+		finalScore();		
 	}
 }
 
@@ -148,11 +149,10 @@ function ratingStars() {
 	if (moves > 15) {	
 		let lastStar = stars.children[1].querySelector('.fa');
 		lastStar.className = "fa fa-star-o";
-	} else if (moves > 1) {	
+	} else if (moves > 10) {	
 		let lastStar = stars.children[2].querySelector('.fa');
 		lastStar.className = "fa fa-star-o";
 		console.log('test');	
-		finalScore();
 	} 
 }
 
