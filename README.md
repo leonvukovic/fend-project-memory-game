@@ -3,7 +3,7 @@
 ## Table of Contents
 
 * [Instructions](#instructions)
-* [Contributing](#contributing)
+* [Resources](#resources)
 * [Dependencies](#dependencies)
 
 ## Instructions
@@ -14,14 +14,14 @@ To get started, open `js/app.js` and start building out the app's functionality
 
 For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
 
-## Contributing
+## Used Resources
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+### Timer
 
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+The timer was built using [A Minimal Pure Javascript Stopwatch](https://www.cssscript.com/a-minimal-pure-javascript-stopwatch/).
 
-## Dependencies
+## Code Dependencies
 
-1. Test
-2. test2
-3. test3 
+1. index.html - blabla
+2. app.css - blabla
+3. app.js - blabla
