@@ -17,6 +17,7 @@ let min = 00;
 let sec = 00;
 let Interval;
 let firstClick = false;
+let starsNum = 3;
 let stars = document.querySelector('ul.stars');
 restartButton.addEventListener('click', restart);
 finalRestart.addEventListener('click', restart);
@@ -106,7 +107,7 @@ function finalScore() {
 	congratsHeading.appendChild(congratsHeadingText);
 	popup.appendChild(congratsHeading);
 
-	let textOfFinishParagraph = document.createTextNode('With ' + moves + ' moves in ' + min + ':' + sec + 's, with 1 star! Woooo!');
+	let textOfFinishParagraph = document.createTextNode('With ' + (moves + 1) + ' moves in ' + min + ':' + sec + 's, with ' + starsNum + ' stars! Woooo!');
 	finishPara.appendChild(textOfFinishParagraph);
 	popup.appendChild(finishPara);
 
@@ -144,6 +145,8 @@ function restart() {
 	firstClick = false;
 	restartTimer();
 
+	star
+
 	deck.style.display = "flex";
 	popup.style.display = "none";
 }
@@ -160,17 +163,22 @@ function ratingStars() {
 	if (moves > 15) {
 		let lastStar = stars.children[1].querySelector('.fa');
 		lastStar.className = "fa fa-star-o";
+		starsNum = 1;
 	} else if (moves > 10) {
 		let lastStar = stars.children[2].querySelector('.fa');
 		lastStar.className = "fa fa-star-o";
+		starsNum = 2;
 	}
 }
 
+// check if card was clicked
 function timerFirstClick() {
 	firstClick = true;
 	clearInterval(Interval);
 	Interval = setInterval(startTimer, 1000);
 }
+
+// restart timer
 function restartTimer() {
 	clearInterval(Interval);
   sec = "00";
@@ -178,7 +186,8 @@ function restartTimer() {
   appendsec.innerHTML = sec;
 	appendmin.innerHTML = min;
 }
-// timer
+
+// timer main function
 function startTimer () {
   sec++;
 
