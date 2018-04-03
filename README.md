@@ -3,8 +3,8 @@
 ## Table of Contents
 
 * [Instructions](#instructions)
-* [Resources](#resources)
-* [Dependencies](#dependencies)
+* [Used Resources](#resources)
+* [Code Dependencies](#dependencies)
 
 ## Instructions
 
@@ -42,6 +42,6 @@ The timer was built using [A Minimal Pure Javascript Stopwatch](https://www.csss
 
 ## Code Dependencies
 
-1. index.html - blabla
-2. app.css - blabla
-3. app.js - blabla
+1. index.html - Main application file
+2. app.css - Used for application style
+3. app.js - Used for application functionality
