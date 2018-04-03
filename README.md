@@ -3,8 +3,8 @@
 ## Table of Contents
 
 * [Instructions](#instructions)
-* [Used Resources](#resources)
-* [Code Dependencies](#dependencies)
+* [Used Resources](#used-resources)
+* [Code Dependencies](#code-dependencies)
 
 ## Instructions
 
