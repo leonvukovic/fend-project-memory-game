@@ -145,8 +145,6 @@ function restart() {
 	firstClick = false;
 	restartTimer();
 
-	star
-
 	deck.style.display = "flex";
 	popup.style.display = "none";
 }
