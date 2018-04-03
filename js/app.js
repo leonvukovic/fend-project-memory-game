@@ -9,12 +9,15 @@ const finishPara = document.createElement('p');
 const congratsHeading = document.createElement('h2');
 const finalRestart = document.createElement('button');
 const insertMoves = document.querySelector('.moves');
+const appendsec = document.getElementById("sec");
+const appendmin = document.getElementById("min");
 let openCards = [];
 let moves = 0;
+let min = 00;
+let sec = 00;
+let Interval;
+let firstClick = false;
 let stars = document.querySelector('ul.stars');
-let timer;
-let second = 55;
-let minute = 0;
 restartButton.addEventListener('click', restart);
 finalRestart.addEventListener('click', restart);
 
@@ -45,6 +48,9 @@ function generateCards() {
 function openCard(evt) {
 	displaySymbol(evt);
 	pushCardsList(evt);
+	if(!firstClick){
+		timerFirstClick();
+	}
 	if (openCards.length > 1 && openCards[0] === openCards[1]){
 		cardsLock(evt);
 		moveCounter();
@@ -89,24 +95,23 @@ function cardsReset() {
 
 // displays final score
 function finalScore() {
-	console.log('uspio si');
-	//ratingStars();
+	clearInterval(Interval);
 	deck.style.display = "none";
 	popup.style.display = "flex";
 
 	let clnStars = stars.cloneNode(true);
 	popup.appendChild(clnStars);
 
-	let congratsHeadingText = document.createTextNode('Congratulations!!!');
+	let congratsHeadingText = document.createTextNode('Congratulations! You won!');
 	congratsHeading.appendChild(congratsHeadingText);
 	popup.appendChild(congratsHeading);
 
-	let textOfFinishParagraph = document.createTextNode('You finished in ' + moves + ' moves!');
+	let textOfFinishParagraph = document.createTextNode('With ' + moves + ' moves in ' + min + ':' + sec + 's, with 1 star! Woooo!');
 	finishPara.appendChild(textOfFinishParagraph);
 	popup.appendChild(finishPara);
 
 	finalRestart.className = "final-restart";
-	let finalRestartText = document.createTextNode('Play again?');
+	let finalRestartText = document.createTextNode('Play again!');
 	finalRestart.appendChild(finalRestartText);
 	popup.appendChild(finalRestart);
 }
@@ -136,11 +141,11 @@ function restart() {
 	    popup.removeChild(popup.firstChild);
 	}
 
+	firstClick = false;
+	restartTimer();
+
 	deck.style.display = "flex";
 	popup.style.display = "none";
-
-	resetTimer();
-	second = 0;
 }
 
 // move counter
@@ -158,25 +163,43 @@ function ratingStars() {
 	} else if (moves > 10) {
 		let lastStar = stars.children[2].querySelector('.fa');
 		lastStar.className = "fa fa-star-o";
-		console.log('test');
 	}
 }
 
-// timer
-function createTimer() {
-	timer = setInterval(function() {
-		second++;
-		console.log(second);
-		if (second > 60) {
-			minute++;
-			console.log(minute + ' : ' + second);
-		}
-	}, 1000);
+function timerFirstClick() {
+	firstClick = true;
+	clearInterval(Interval);
+	Interval = setInterval(startTimer, 1000);
 }
+function restartTimer() {
+	clearInterval(Interval);
+  sec = "00";
+	min = "00";
+  appendsec.innerHTML = sec;
+	appendmin.innerHTML = min;
+}
+// timer
+function startTimer () {
+  sec++;
 
-// reset createTimer
-function resetTimer() {
-	clearInterval(timer);
+  if(sec < 9){
+    appendsec.innerHTML = "0" + sec;
+  }
+
+  if (sec > 9){
+    appendsec.innerHTML = sec;
+  }
+
+  if (sec > 59) {
+    min++;
+    appendmin.innerHTML = "0" + min;
+    sec = 0;
+    appendsec.innerHTML = "0" + 0;
+  }
+
+  if (min > 9){
+    appendmin.innerHTML = min;
+  }
 }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
