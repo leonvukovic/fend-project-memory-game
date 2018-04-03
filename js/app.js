@@ -63,7 +63,7 @@ function openCard(evt) {
 
 // open card symbol
 function displaySymbol(evt){
-	evt.target.className = "card open show";
+	evt.target.className = "card open show disabled";
 }
 
 // push to card list
@@ -75,11 +75,11 @@ function pushCardsList(evt) {
 function cardsLock() {
 	openCards.pop();
 	openCards.pop();
-	let match = document.getElementsByClassName('card open show');
-	match[0].className = "card match";
-	match[0].className = "card match";
+	let match = document.getElementsByClassName('card open show disabled');
+	match[0].className = "card match disabled";
+	match[0].className = "card match disabled";
 
-	let final = document.getElementsByClassName('card match');
+	let final = document.getElementsByClassName('card match disabled');
 	if (final.length === 16) {
 		finalScore();
 	}
@@ -89,7 +89,7 @@ function cardsLock() {
 function cardsReset() {
 	openCards.pop();
 	openCards.pop();
-	let reset = document.getElementsByClassName('card open show');
+	let reset = document.getElementsByClassName('card open show disabled');
 	reset[0].className = "card";
 	reset[0].className = "card";
 }
