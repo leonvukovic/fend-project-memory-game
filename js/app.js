@@ -22,13 +22,6 @@ let stars = document.querySelector('ul.stars');
 restartButton.addEventListener('click', restart);
 finalRestart.addEventListener('click', restart);
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
 // create one card
 function createCard(cardList) {
 	const card = document.createElement('li');
@@ -52,9 +45,12 @@ function openCard(evt) {
 	if(!firstClick){
 		timerFirstClick();
 	}
-	if (openCards.length > 1 && openCards[0] === openCards[1]){
+	if (openCards.length > 1 && openCards[0] === openCards[1] && openCards.length < 3){
 		cardsLock(evt);
 		moveCounter();
+	} else if (openCards.length > 2) {
+		alert('You can only open two cards at once. Good luck!');
+		cardsReset();
 	} else if (openCards.length > 1 && openCards[0] !== openCards[1]) {
 		setTimeout(cardsReset, 800);
 		moveCounter();
@@ -90,8 +86,11 @@ function cardsReset() {
 	openCards.pop();
 	openCards.pop();
 	let reset = document.getElementsByClassName('card open show disabled');
-	reset[0].className = "card";
-	reset[0].className = "card";
+
+	for(let x = 0; x <= reset.length; x++) {
+		reset[0].className = "card";
+	}
+
 }
 
 // displays final score
@@ -233,15 +232,3 @@ function init(){
 document.addEventListener("DOMContentLoaded", function(event) {
     init();
 });
-
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
