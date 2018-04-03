@@ -12,6 +12,9 @@ const insertMoves = document.querySelector('.moves');
 let openCards = [];
 let moves = 0;
 let stars = document.querySelector('ul.stars');
+let timer;
+let second = 55;
+let minute = 0;
 restartButton.addEventListener('click', restart);
 finalRestart.addEventListener('click', restart);
 
@@ -30,7 +33,7 @@ function createCard(cardList) {
 	icon.className = "fa " + cardList;
 	card.appendChild(icon);
 	deck.appendChild(card);
-	card.addEventListener('click', openCard);	
+	card.addEventListener('click', openCard);
 ;}
 
 // generate cards in DOM
@@ -39,10 +42,10 @@ function generateCards() {
 }
 
 // flip the card on click
-function openCard(evt) {	
+function openCard(evt) {
 	displaySymbol(evt);
-	pushCardsList(evt);	
-	if (openCards.length > 1 && openCards[0] === openCards[1]){		
+	pushCardsList(evt);
+	if (openCards.length > 1 && openCards[0] === openCards[1]){
 		cardsLock(evt);
 		moveCounter();
 	} else if (openCards.length > 1 && openCards[0] !== openCards[1]) {
@@ -58,11 +61,11 @@ function displaySymbol(evt){
 
 // push to card list
 function pushCardsList(evt) {
-	openCards.push(evt.target.firstChild.className);	
+	openCards.push(evt.target.firstChild.className);
 }
 
 // lock the cards
-function cardsLock() {		
+function cardsLock() {
 	openCards.pop();
 	openCards.pop();
 	let match = document.getElementsByClassName('card open show');
@@ -71,15 +74,15 @@ function cardsLock() {
 
 	let final = document.getElementsByClassName('card match');
 	if (final.length === 16) {
-		finalScore();		
+		finalScore();
 	}
 }
 
 // reset the cards if they don't match
-function cardsReset() {	
+function cardsReset() {
 	openCards.pop();
 	openCards.pop();
-	let reset = document.getElementsByClassName('card open show');	
+	let reset = document.getElementsByClassName('card open show');
 	reset[0].className = "card";
 	reset[0].className = "card";
 }
@@ -97,7 +100,7 @@ function finalScore() {
 	let congratsHeadingText = document.createTextNode('Congratulations!!!');
 	congratsHeading.appendChild(congratsHeadingText);
 	popup.appendChild(congratsHeading);
-	
+
 	let textOfFinishParagraph = document.createTextNode('You finished in ' + moves + ' moves!');
 	finishPara.appendChild(textOfFinishParagraph);
 	popup.appendChild(finishPara);
@@ -110,18 +113,18 @@ function finalScore() {
 
 // when restart button is pressed
 function restart() {
-	let deleteList = document.querySelectorAll('.card');	
-	for(let i = 0; i < deleteList.length; i++) {	
+	let deleteList = document.querySelectorAll('.card');
+	for(let i = 0; i < deleteList.length; i++) {
 		deleteList[i].remove();
 	}
 	generateCards();
 
-	if (moves > 15) {	
+	if (moves > 15) {
 		stars.children[1].querySelector('.fa').className = "fa fa-star";
 		stars.children[2].querySelector('.fa').className = "fa fa-star";
-	} else if (moves > 10) {	
-		stars.children[2].querySelector('.fa').className = "fa fa-star";			
-	} 
+	} else if (moves > 10) {
+		stars.children[2].querySelector('.fa').className = "fa fa-star";
+	}
 
 	moves = 0;
 	insertMoves.textContent = "";
@@ -135,25 +138,45 @@ function restart() {
 
 	deck.style.display = "flex";
 	popup.style.display = "none";
+
+	resetTimer();
+	second = 0;
 }
 
 // move counter
 function moveCounter() {
-	moves++;	
+	moves++;
 	insertMoves.textContent = moves;
 	ratingStars();
-} 
+}
 
 // game rating
-function ratingStars() {	
-	if (moves > 15) {	
+function ratingStars() {
+	if (moves > 15) {
 		let lastStar = stars.children[1].querySelector('.fa');
 		lastStar.className = "fa fa-star-o";
-	} else if (moves > 10) {	
+	} else if (moves > 10) {
 		let lastStar = stars.children[2].querySelector('.fa');
 		lastStar.className = "fa fa-star-o";
-		console.log('test');	
-	} 
+		console.log('test');
+	}
+}
+
+// timer
+function createTimer() {
+	timer = setInterval(function() {
+		second++;
+		console.log(second);
+		if (second > 60) {
+			minute++;
+			console.log(minute + ' : ' + second);
+		}
+	}, 1000);
+}
+
+// reset createTimer
+function resetTimer() {
+	clearInterval(timer);
 }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -179,7 +202,7 @@ function init(){
 // on DOM content load initialize functions
 document.addEventListener("DOMContentLoaded", function(event) {
     init();
-});	
+});
 
 
 /*
